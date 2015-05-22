@@ -19,11 +19,19 @@ function _inherits(subClass, superClass) { if (typeof superClass !== 'function' 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
+<<<<<<< HEAD
 var _ask = require('../ask');
 
 var _ask2 = _interopRequireDefault(_ask);
 
 var _utils = require('../utils');
+=======
+var _ask = require('./ask');
+
+var _ask2 = _interopRequireDefault(_ask);
+
+var _utils = require('./utils');
+>>>>>>> ee5a5c5e568d6de3c1b84ed57cd8a6016600b97b
 
 var _events = require('events');
 
@@ -255,7 +263,11 @@ var Program = (function (_EventEmitter) {
     this.args = argv._;
     this.argv = argv;
     this._commands = {};
+<<<<<<< HEAD
     this.cmdDir = path.join.bind(__dirname, '../../', 'commands');
+=======
+    this.cmdDir = path.join.bind(path, require.main.filename, '../../');
+>>>>>>> ee5a5c5e568d6de3c1b84ed57cd8a6016600b97b
   }
 
   _inherits(Program, _EventEmitter);
