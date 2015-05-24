@@ -19,19 +19,11 @@ function _inherits(subClass, superClass) { if (typeof superClass !== 'function' 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
 
-<<<<<<< HEAD
-var _ask = require('../ask');
-
-var _ask2 = _interopRequireDefault(_ask);
-
-var _utils = require('../utils');
-=======
 var _ask = require('./ask');
 
 var _ask2 = _interopRequireDefault(_ask);
 
 var _utils = require('./utils');
->>>>>>> ee5a5c5e568d6de3c1b84ed57cd8a6016600b97b
 
 var _events = require('events');
 
@@ -88,9 +80,10 @@ var Option = (function () {
   }, {
     key: 'parseFlags',
     value: function parseFlags() {
-      var short = this.flags.match(/^\-([a-z]+)/)[1];
-      var long = this.flags.match(/\-\-([a-z]+)/)[1];
-
+      var short = this.flags.match(/^\-([a-z]+)/);
+      var long = this.flags.match(/\-\-([a-z]+)/);
+      short = short && short.length && short[1];
+      long = long && long.length && long[1];
       this._name = argv[short] && short || argv[long] && long;
 
       this._required = /\</.test(this.flags);
@@ -254,7 +247,7 @@ var Command = (function () {
 })();
 
 var Program = (function (_EventEmitter) {
-  function Program(_argv) {
+  function Program(_argv, cmdDir) {
     _classCallCheck(this, Program);
 
     _get(Object.getPrototypeOf(Program.prototype), 'constructor', this).call(this);
@@ -263,11 +256,7 @@ var Program = (function (_EventEmitter) {
     this.args = argv._;
     this.argv = argv;
     this._commands = {};
-<<<<<<< HEAD
-    this.cmdDir = path.join.bind(__dirname, '../../', 'commands');
-=======
-    this.cmdDir = path.join.bind(path, require.main.filename, '../../');
->>>>>>> ee5a5c5e568d6de3c1b84ed57cd8a6016600b97b
+    this.cmdDir = path.join.bind(path, cmdDir);
   }
 
   _inherits(Program, _EventEmitter);
@@ -301,9 +290,9 @@ var Program = (function (_EventEmitter) {
   return Program;
 })(_events.EventEmitter);
 
-function configure(argv) {
+function configure(argv, cmdDir) {
   if (!program) {
-    program = new Program(argv);
+    program = new Program(argv, cmdDir);
     program.emit('start', program.cmd);
   }
   return program;
