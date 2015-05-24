@@ -6,7 +6,7 @@ let Promise = require('bluebird');
 
 let program, argv;
 
-class Option{
+class Option {
 
   constructor(flags, info, parser){
 
@@ -209,7 +209,7 @@ class Command{
 
 class Program extends EventEmitter{
 
-  constructor(_argv) {
+  constructor(_argv, cmdDir) {
 
     super();
 
@@ -217,7 +217,7 @@ class Program extends EventEmitter{
     this.args = argv._;
     this.argv = argv;
     this._commands = {};
-    this.cmdDir = path.join.bind(path, require.main.filename, '../../dist/commands');
+    this.cmdDir = path.join.bind(path, cmdDir);
 
   }
 
@@ -245,9 +245,9 @@ class Program extends EventEmitter{
   }
 }
 
-export function configure(argv) {
+export function configure(argv, cmdDir) {
   if (!program) {
-    program = new Program(argv);
+    program = new Program(argv, cmdDir);
     program.emit('start', program.cmd);
   }
   return program;
